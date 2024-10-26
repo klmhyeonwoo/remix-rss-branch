@@ -87,7 +87,7 @@ export default function Index() {
             margin-top: 3rem;
           `}>
             <Input type={'text'} name={'username'} placeholder={"브런치 주소 또는 브런치 아이디를 입력해주세요"}/>
-            <Button type={"submit"}> RSS 추출하기 </Button>
+            <Button type={"submit"} loading={fetcher?.state === 'submitting'}> RSS 추출하기 </Button>
           </fetcher.Form>
           <div css={css`
             min-height: 5rem;

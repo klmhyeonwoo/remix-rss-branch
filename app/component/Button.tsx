@@ -1,6 +1,11 @@
 import {css} from "@emotion/react";
+import {ButtonHTMLAttributes, PropsWithChildren} from "react";
+import Loading from "~/component/Loading";
 
-export default function Button({ props, children }) {
+type ButtonProps = {
+    loading?: boolean;
+} & Omit<ButtonHTMLAttributes<HTMLButtonElement>, "types">
+export default function Button({ loading, props, children }: PropsWithChildren<ButtonProps>) {
     return (
         <button
         css={css`
@@ -19,7 +24,7 @@ export default function Button({ props, children }) {
       `}
             {...props}
         >
-            {children}
+            {loading ? <Loading /> : children}
         </button>
     )
 }
