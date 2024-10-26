@@ -24,6 +24,6 @@ export default defineConfig({
     }),
     tsconfigPaths(),
     svgr(),
-    Sitemap({ hostname: "https://brunch-rss.blog" }),
+    Sitemap({ hostname: "https://brunch-rss.blog", outDir: "build" }),
   ],
 });
