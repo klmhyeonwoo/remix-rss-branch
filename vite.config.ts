@@ -1,6 +1,8 @@
 import { vitePlugin as remix } from "@remix-run/dev";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
+import svgr from "vite-plugin-svgr";
+import Sitemap from "vite-plugin-sitemap";
 
 declare module "@remix-run/node" {
   interface Future {
@@ -18,7 +20,10 @@ export default defineConfig({
         v3_singleFetch: true,
         v3_lazyRouteDiscovery: true,
       },
+      jsxImportSource: "@emotion/react",
     }),
     tsconfigPaths(),
+    svgr(),
+    Sitemap({ hostname: "https://brunch-rss.blog" }),
   ],
 });
