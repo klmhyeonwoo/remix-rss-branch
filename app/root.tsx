@@ -33,6 +33,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <link rel="icon" type="image/svg+xml" href="//t1.daumcdn.net/brunch/static/icon/favicon/brunchstory/favicon_20230406.ico" />
         <meta name="description" content="브런치의 RSS를 손쉽게 추출해보세요" />
         <title>브런치 RSS</title>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1550225145364569"
+        crossOrigin="anonymous"></script>
         <Meta />
         <Links />
       </head>
