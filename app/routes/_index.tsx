@@ -1,13 +1,8 @@
-import {ActionFunction, json, LoaderFunction} from "@remix-run/node";
-import axios from "axios";
+
 import {
-  Form,
-  Link,
-  useActionData,
+
   useFetcher,
-  useLoaderData,
-  useNavigation,
-  useViewTransitionState
+
 } from "@remix-run/react";
 import {css} from "@emotion/react";
 import Input from "~/component/Input";
@@ -17,33 +12,6 @@ import {DESIGN_SYSTEM_COLOR} from "~/variables";
 interface actionType {
   rssLink: string;
   error: string;
-}
-
-export const action: ActionFunction = async ({ request }) => {
-  function checkBrunchURL(url) {
-    const regex = /^(https:\/\/)?brunch\.co\.kr\/@/;
-    return regex.test(url);
-  }
-
-  try {
-    const formData = await request.formData();
-    const username = formData.get('username') as string;
-    if (!username.trim()) return json({ error: "브런치 주소 또는 아이디에 빈 값은 넣을 수 없습니다."})
-
-    const { data, status } = checkBrunchURL(username)
-        ? await axios.get(`${username}`)
-        : await axios.get(`https://brunch.co.kr/@${username}`);
-    const regex = /<link\s+rel=["']alternate["']\s+type=["']application\/rss\+xml["']\s+[^>]*href=["']([^"']+)["']/i;
-    const match = data.match(regex);
-    if (match && match[1]) {
-      const rssLink = match[1];
-      return json({ rssLink });
-    } else {
-      return json({ error: "존재하지 않는 브런치 주소입니다." });
-    }
-  } catch (error) {
-    return json({ error: "브런치 주소를 불러오는 도중 에러가 발생했어요" });
-  }
 }
 
 export default function Index() {
@@ -80,12 +48,13 @@ export default function Index() {
           `}> 브런치 RSS 생성 </div>
             <span> 쉽고 빠르게 브런치 RSS 추출을 해보세요 </span>
           </div>
-          <fetcher.Form method="post" css={css`
+          <fetcher.Form method="post" action="/api/rss-action" css={css`
             display: flex;
             flex-direction: column;
             row-gap: 1rem;
             margin-top: 3rem;
-          `}>
+          `}
+          >
             <Input type={'text'} name={'username'} placeholder={"브런치 주소 또는 브런치 아이디를 입력해주세요"}/>
             <Button type={"submit"} loading={fetcher?.state === 'submitting'}> RSS 추출하기 </Button>
           </fetcher.Form>
